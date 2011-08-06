@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<!--
+Version: MPL 1.1/GPL 2.0
+
+The contents of this file are subject to the Mozilla Public License
+Version 1.1 (the "License"); you may not use this file except in
+compliance with the License. You may obtain a copy of the License at
+http://www.mozilla.org/MPL/. 
+
+Software distributed under the License is distributed on an "AS IS"
+basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+License for the specific language governing rights and limitations
+under the License.
+
+The Original Code is TeleKast.
+
+The Initial Developer of the Original Code is Greg Marine.
+Portions created by the Initial Developer are Copyright (C) 2006-2007
+the Initial Developer. All Rights Reserved.
+
+Contributor(s):
+   David Czechowski
+
+Alternatively, the contents of this file may be used under the terms
+of the GNU General Public License version 2 or above (the  "GPL License"),
+in which case the provisions of the GPL License are applicable instead of
+those above. If you wish to allow use of your version of this file only
+under the terms of the GPL License and not to allow others to use
+your version of this file under the MPL, indicate your decision by
+deleting the provisions above and replace them with the notice and
+other provisions required by the GPL License. If you do not delete
+the provisions above, a recipient may use your version of this file
+under either the MPL or the GPL License.
+-->
+
+<!DOCTYPE prefwindow SYSTEM "chrome://telekast/locale/frmPreferences.dtd">
+
+<prefwindow
+  id="frmPreferences"
+  title="&frmPreferences;"
+  onload="OnLoad();"
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <prefpane
+      id="Gerenal"
+      image="images/general_prefs.png"
+      label="&general;">
+        
+        <preferences>
+        
+            <preference id="pref-checkforupdate" name="telekast.update.checkforupdate" type="bool" />
+        
+        </preferences>
+
+        <groupbox>
+        
+            <caption label="&general;" image="images/general_prefs.png" />
+            
+            <checkbox id="chkCheckForUpdate" label="&checkForUpdate;" preference="pref-checkforupdate" />
+            
+        </groupbox>
+
+    </prefpane>
+
+    <prefpane
+      id="ScriptEditor"
+      image="images/script.png"
+      label="&scripteditor;">
+        
+        <preferences>
+        
+            <preference id="pref-filepath" name="telekast.folders.filepath" type="string" />
+        
+        </preferences>
+
+        <groupbox>
+        
+            <caption label="&scripteditor;" image="images/script_editor.png" />
+            
+            <label value="&filepath;" />
+            
+            <hbox flex="1">
+            
+                <textbox id="txtClipPath" preference="pref-filepath" flex="1" />
+                <toolbarbutton onclick="ScriptFilePathPrompt();" tooltiptext="&filepath;" image="images/folder_script.png" />
+            
+            </hbox>
+            
+        </groupbox>
+
+    </prefpane>
+
+    <prefpane
+      id="SegmentClip"
+      image="images/segment_clip.png"
+      label="&segmentclip;">
+        
+        <preferences>
+        
+            <preference id="pref-clippath" name="telekast.folders.clippath" type="string" />
+            <preference id="pref-autorefresh" name="telekast.clip.autorefresh" type="bool" />
+            <preference id="pref-autorefresh-delay" name="telekast.clip.autorefresh.delay" type="int" />
+        
+        </preferences>
+
+        <groupbox>
+        
+            <caption label="&segmentclip;" image="images/segment_clip.png" />
+            
+            <label value="&clippath;" />
+            
+            <hbox flex="1">
+            
+                <textbox id="txtClipPath" preference="pref-clippath" flex="1" />
+                <toolbarbutton onclick="ClipFolderPrompt();" tooltiptext="&clippath;" image="images/folder_clip.png" />
+            
+            </hbox>
+
+            <hbox>
+            
+                <checkbox id="chkAutoRefreshClip" label="&chkAutoRefreshClip;" preference="pref-autorefresh" />
+                
+                <vbox>
+                
+                    <label value="&cliprefreshdelay;" />
+                    
+                    <hbox>
+                    
+                        <spacer flex="1" />
+                        <textbox id="txtClipRefreshDelay" preference="pref-autorefresh-delay" flex="1" />
+                    
+                    </hbox>
+                    
+                </vbox>
+            
+            </hbox>
+        
+        </groupbox>
+
+    </prefpane>
+
+    <prefpane
+      id="Teleprompter"
+      image="images/teleprompter.png"
+      label="&teleprompter;">
+    
+        <preferences>
+        
+            <preference id="pref-tp-bgcolor" name="telekast.teleprompter.bgcolor" type="string" />
+            <preference id="pref-tp-forecolor" name="telekast.teleprompter.forecolor" type="string" />
+            <preference id="pref-tp-segnumcolor" name="telekast.teleprompter.segnumcolor" type="string" />
+            <preference id="pref-defaultspeed" name="telekast.teleprompter.defaultspeed" type="int" />
+            <preference id="pref-textsize" name="telekast.teleprompter.textsize" type="int" />
+            <preference id="pref-mirror-horz" name="telekast.teleprompter.mirror-horz" type="bool" />
+            <preference id="pref-mirror-vert" name="telekast.teleprompter.mirror-vert" type="bool" />
+        
+        </preferences>
+
+        <popupset>
+        
+            <popup id="tpbgcolor">
+                <colorpicker id="tpbgcolorpicker" onclick="CloseColorPicker(event);" preference="pref-tp-bgcolor" />
+            </popup>
+        
+            <popup id="tpforecolor">
+                <colorpicker id="tpforecolorpicker" onclick="CloseColorPicker(event);" preference="pref-tp-forecolor" />
+            </popup>
+        
+            <popup id="tpsegnumcolor">
+                <colorpicker id="tpsegnumcolorpicker" onclick="CloseColorPicker(event);" preference="pref-tp-segnumcolor" />
+            </popup>
+        
+        </popupset>
+        
+        <groupbox>
+        
+            <caption label="&teleprompter;" image="images/teleprompter.png" />
+            
+            <hbox>
+                
+                <vbox>
+                    
+                    <label value="&tpbgcolor;" />
+                    
+                    <hbox>
+                    
+                        <textbox id="txtTPBGColor" size="7" maxlength="7" preference="pref-tp-bgcolor" />
+                        <toolbarbutton image="images/color_swatch.png" tooltiptext="&tpbgcolor;" popup="tpbgcolor" />
+                    
+                    </hbox>
+                
+                    <label value="&tpforecolor;" />
+                    
+                    <hbox>
+                    
+                        <textbox id="txtTPForeColor" size="7" maxlength="7" preference="pref-tp-forecolor" />
+                        <toolbarbutton image="images/color_swatch.png" tooltiptext="&tpforecolor;" popup="tpforecolor" />
+                    
+                    </hbox>
+                
+                    <label value="&tpsegnumcolor;" />
+                    
+                    <hbox>
+                    
+                        <textbox id="txtTPSegNumColor" size="7" maxlength="7" preference="pref-tp-segnumcolor" />
+                        <toolbarbutton image="images/color_swatch.png" tooltiptext="&tpsegnumcolor;" popup="tpsegnumcolor" />
+                    
+                    </hbox>
+                    
+                </vbox>
+
+                <vbox>
+                    
+                    <label value="&defaultspeed;" />
+                    
+                    <hbox>
+                        
+                        <spacer flex="1" />
+                        <menulist id="lstDefaultSpeed" preference="pref-defaultspeed">
+                        
+                            <menupopup>
+                            
+                                <menuitem label="0" value="0" />
+                                <menuitem label="1" value="1" />
+                                <menuitem label="2" value="2" />
+                                <menuitem label="3" value="3" />
+                                <menuitem label="4" value="4" />
+                                <menuitem label="5" value="5" />
+                                <menuitem label="6" value="6" />
+                                <menuitem label="7" value="7" />
+                                <menuitem label="8" value="8" />
+                                <menuitem label="9" value="9" />
+                            
+                            </menupopup>
+                            
+                        </menulist>
+                        
+                    </hbox>
+                    
+                    <hbox>
+                        
+                        <spacer flex="1" />
+                        <label value="&textsize;" />
+                        
+                    </hbox>
+                    
+                    <hbox>
+                    
+                        <spacer flex="1" />
+                        <textbox id="txtTextSize" size="3" preference="pref-textsize" />
+                        
+                    </hbox>
+                    
+                    <hbox>
+                        
+                        <spacer flex="1" />
+                        <label value="&mirrorhorz;" />
+                        
+                    </hbox>
+                    
+                    <hbox>
+                    
+                        <spacer flex="1" />
+                        <checkbox id="boolMirrorHorz" preference="pref-mirror-horz" />
+                        
+                    </hbox>
+                    
+                    
+                    <hbox>
+                        
+                        <spacer flex="1" />
+                        <label value="&mirrorvert;" />
+                        
+                    </hbox>
+                    
+                    <hbox>
+                    
+                        <spacer flex="1" />
+                        <checkbox id="boolMirrorVert" preference="pref-mirror-vert" />
+                        
+                    </hbox>
+                    
+                </vbox>
+                
+            </hbox>
+        
+        </groupbox>
+        
+    </prefpane>
+
+    <script type="application/x-javascript" src="chrome://jslib/content/jslib.js" />
+    <script type="application/x-javascript" src="chrome://telekast/content/TeleKast.js"/>
+    <script type="application/x-javascript" src="chrome://telekast/content/frmPreferences.js"/>
+        
+    <stringbundleset>
+        <stringbundle id="frmPreferencesProperties" src="chrome://telekast/locale/frmPreferencesEditor.properties"/>
+        <stringbundle id="TeleKastProperties" src="chrome://telekast/locale/TeleKast.properties"/>
+    </stringbundleset>
+
+</prefwindow>
