@@ -1,0 +1,3 @@
+content     telekast    file:telekast/
+locale      telekast    en-US file:locale/en-US/
+content     jslib       jar:jslib.jar!/

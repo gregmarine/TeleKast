@@ -1,0 +1,713 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<!--
+Version: MPL 1.1/GPL 2.0
+
+The contents of this file are subject to the Mozilla Public License
+Version 1.1 (the "License"); you may not use this file except in
+compliance with the License. You may obtain a copy of the License at
+http://www.mozilla.org/MPL/. 
+
+Software distributed under the License is distributed on an "AS IS"
+basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+License for the specific language governing rights and limitations
+under the License.
+
+The Original Code is TeleKast.
+
+The Initial Developer of the Original Code is Greg Marine.
+Portions created by the Initial Developer are Copyright (C) 2006-2007
+the Initial Developer. All Rights Reserved.
+
+Contributor(s):
+
+Alternatively, the contents of this file may be used under the terms
+of the GNU General Public License version 2 or above (the  "GPL License"),
+in which case the provisions of the GPL License are applicable instead of
+those above. If you wish to allow use of your version of this file only
+under the terms of the GPL License and not to allow others to use
+your version of this file under the MPL, indicate your decision by
+deleting the provisions above and replace them with the notice and
+other provisions required by the GPL License. If you do not delete
+the provisions above, a recipient may use your version of this file
+under either the MPL or the GPL License.
+-->
+
+<!DOCTYPE window SYSTEM "chrome://telekast/locale/frmMain.dtd">
+
+<window
+  id="frmMain"
+  title="&frmMain;"
+  width="800"
+  height="600"
+  orient="vertical"
+  persist="width height sizemode"
+  onload="OnLoad();"
+  onclose="OnClose();"
+  xmlns:html="http://www.w3.org/1999/xhtml"
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <script type="application/x-javascript" src="chrome://jslib/content/jslib.js" />
+    <script type="application/x-javascript" src="TeleKast.js"/>
+    <script type="application/x-javascript" src="chrome://global/content/printUtils.js"/>
+    <script type="application/x-javascript" src="frmMain.js"/>
+
+    <stringbundleset>
+        <stringbundle id="frmMainProperties" src="chrome://telekast/locale/frmMain.properties"/>
+        <stringbundle id="TeleKastProperties" src="chrome://telekast/locale/TeleKast.properties"/>
+    </stringbundleset>
+
+    <commandset>
+    
+        <!-- File Commands -->
+        <command id="cmdNewScript" oncommand="OnCmdNewScript();" />
+        <command id="cmdOpenScript" oncommand="OnCmdOpenScript();" />
+        <command id="cmdImportScript" oncommand="OnCmdImportScript();" />
+        <command id="cmdSaveScript" oncommand="OnCmdSaveScript();" disabled="true" />
+        <command id="cmdSaveScriptAs" oncommand="OnCmdSaveScriptAs();" disabled="true" />
+        <command id="cmdPrintSetup" oncommand="OnCmdPrintSetup();" />
+        <command id="cmdPrintPreview" oncommand="OnCmdPrintPreview();" />
+        <command id="cmdPrint" oncommand="OnCmdPrint();" />
+        <command id="cmdQuit" oncommand="OnCmdQuit();" />
+        
+        <!-- Script Editor Commands -->
+        <command id="cmdNewSegment" oncommand="OnCmdNewSegment();" />
+        <command id="cmdEditSegmentInScript" oncommand="OnCmdEditSegmentInScript();" disabled="true" />
+        <command id="cmdCopyToClip" oncommand="OnCmdCopyToClip();" disabled="true" />
+        <command id="cmdMoveSegmentUp" oncommand="OnCmdMoveSegmentUp();" disabled="true" />
+        <command id="cmdMoveSegmentDown" oncommand="OnCmdMoveSegmentDown();" disabled="true" />
+        <command id="cmdScriptDeleteSelectedSegments" oncommand="OnCmdScriptDeleteSelectedSegments();" disabled="true" />
+        <command id="cmdScriptDeleteAllSegments" oncommand="OnCmdScriptDeleteAllSegments();" disabled="true" />
+        
+        <!-- Segment Clip Commands -->
+        <command id="cmdEditSegmentInClip" oncommand="OnCmdEditSegmentInClip();" disabled="true" />
+        <command id="cmdCopyToScript" oncommand="OnCmdCopyToScript();" disabled="true" />
+        <command id="cmdClipDeleteSelectedSegments" oncommand="OnCmdClipDeleteSelectedSegments();" disabled="true" />
+        <command id="cmdClipDeleteAllSegments" oncommand="OnCmdClipDeleteAllSegments();" disabled="true" />
+        <command id="cmdRefreshClip" oncommand="OnCmdRefreshClip();" />
+        
+        <!-- Teleprompter Commands -->
+        <command id="cmdShowTeleprompter" oncommand="OnCmdShowTeleprompter();" disabled="true" />
+        <command id="cmdHideTeleprompter" oncommand="OnCmdHideTeleprompter();" />
+
+        <!-- Tools Commands -->
+        <command id="cmdCheckForUpdate" oncommand="OnCmdCheckForUpdate();" />
+        <command id="cmdPreferences" oncommand="OnCmdPreferences();" />
+
+        <!-- Help Commands -->
+        <command id="cmdHelp" oncommand="OnCmdHelp();" />
+        <command id="cmdAbout" oncommand="OnCmdAbout();" />
+        
+    </commandset>
+    
+    <keyset>
+    
+        <!-- File Keys -->
+        <key id="keyNewScript" command="cmdNewScript" modifiers="control" key="N" />
+        <key id="keyOpenScript" command="cmdOpenScript" modifiers="control" key="O" />
+        <key id="keyImportScript" command="cmdImportScript" modifiers="control" key="I" />
+        <key id="keySaveScript" command="cmdSaveScript" modifiers="control" key="S" />
+        <key id="keyPrint" command="cmdPrint" modifiers="control" key="P" />
+        <key id="keyQuit" command="cmdQuit" modifiers="control" key="Q" />
+        
+        <!-- Script Editor Keys -->
+        <key id="keyNewSegment" command="cmdNewSegment" modifiers="shift" key="N" />
+        <key id="keyEditSegmentInScript" command="cmdEditSegmentInScript" modifiers="control" key="E" />
+        <key id="keyCopyToClip" command="cmdCopyToClip" modifiers="control" key="C" />
+        <key id="keyMoveSegmentUp" command="cmdMoveSegmentUp" modifiers="control" keycode="VK_UP" />
+        <key id="keyMoveSegmentDown" command="cmdMoveSegmentDown" modifiers="control" keycode="VK_DOWN" />
+        
+        <!-- Segment Clip Keys -->
+        <key id="keyEditSegmentInClip" command="cmdEditSegmentInClip" modifiers="shift" key="E" />
+        <key id="keyCopyToScript" command="cmdCopyToScript" modifiers="shift" key="C" />
+        <key id="keyRefreshClip" command="cmdRefreshClip" modifiers="control" key="R" />
+        
+        <!-- Teleprompter Keys -->
+        <key id="keyShowTeleprompter" command="cmdShowTeleprompter" keycode="VK_F5" />
+        <key id="keyHideTeleprompter" command="cmdHideTeleprompter" keycode="VK_ESCAPE" />
+        
+        <!-- Tools Keys -->
+        <key id="keyCheckForUpdate" command="cmdCheckForUpdate" modifiers="control" key="U" />
+        <key id="keyPreferences" command="cmdPreferences" modifiers="shift" key="P" />
+        
+        <!-- Help Keys -->
+        <key id="keyHelp" command="cmdHelp" keycode="VK_F1" />
+
+    </keyset>
+    
+    <popupset>
+    
+        <popup id="mnuScriptContextMenu">
+
+            <menuitem
+             id="itmScriptContextMenuNewSegment"
+             command="cmdNewSegment"
+             key="keyNewSegment"
+             label="&cmdNewSegment;"
+             class="menuitem-iconic"
+             image="images/new_segment.png" />
+
+            <menuitem
+             id="itmScriptContextMenuEditSegment"
+             command="cmdEditSegmentInScript"
+             key="keyEditSegmentInScript"
+             label="&cmdEditSegmentInScript;"
+             class="menuitem-iconic"
+             image="images/edit_segment.png" />
+
+            <menuitem
+              id="itmScriptContextMenuCopyToClip"
+              command="cmdCopyToClip"
+              key="CopyToClip"
+              label="&cmdCopyToClip;"
+              class="menuitem-iconic"
+              image="images/copy_to_clip.png" />
+
+            <menuitem
+              id="itmScriptContextMenuDeleteSelectedSegments"
+              command="cmdScriptDeleteSelectedSegments"
+              label="&cmdScriptDeleteSelectedSegments;"
+              class="menuitem-iconic"
+              image="images/delete_selected_segments.png" />
+
+            <menuitem
+              id="itmScriptContextMenuDeleteAllSegments"
+              command="cmdScriptDeleteAllSegments"
+              label="&cmdScriptDeleteAllSegments;"
+              class="menuitem-iconic"
+              image="images/delete_all_segments.png" />
+
+            <menuseparator />
+
+            <menuitem
+              id="itmScriptContextMenuNewScript"
+              command="cmdNewScript"
+              key="keyNewScript"
+              label="&cmdNewScript;"
+              class="menuitem-iconic"
+              image="images/script.png" />
+
+            <menuitem
+              id="itmScriptContextMenuImportScript"
+              command="cmdImportScript"
+              key="keyImportScript"
+              label="&cmdImportScript;"
+              class="menuitem-iconic"
+              image="images/import_script.png" />
+
+            <menuseparator />
+
+            <menuitem
+              id="itmScriptContextMenuSaveScript"
+              command="cmdSaveScript"
+              key="keySaveScript"
+              label="&cmdSaveScript;"
+              class="menuitem-iconic"
+              image="images/save_script.png" />
+
+            <menuitem
+              id="itmScriptContextMenuSaveScriptAs"
+              command="cmdSaveScriptAs"
+              label="&cmdSaveScriptAs;"
+              class="menuitem-iconic"
+              image="images/save_script_as.png" />
+
+        </popup>
+    
+        <popup id="mnuSegmentClipContextMenu">
+
+            <menuitem
+              id="itmSegmentClipContextMenuEditSegmentInClip"
+              command="cmdEditSegmentInClip"
+              key="keyEditSegmentInClip"
+              label="&cmdEditSegmentInClip;"
+              class="menuitem-iconic"
+              image="images/edit_segment.png" />
+
+            <menuitem
+              id="itmSegmentClipContextMenuCopyToScript"
+              command="cmdCopyToScript"
+              key="keyCopyToScript"
+              label="&cmdCopyToScript;"
+              class="menuitem-iconic"
+              image="images/copy_to_script.png" />
+
+            <menuitem
+              id="itmSegmentClipContextMenuDeleteSegment"
+              command="cmdClipDeleteSelectedSegments"
+              label="&cmdClipDeleteSelectedSegments;"
+              class="menuitem-iconic"
+              image="images/delete_selected_segments.png" />
+
+            <menuitem
+              id="itmSegmentClipContextMenuDeleteSegment"
+              command="cmdClipDeleteAllSegments"
+              label="&cmdClipDeleteAllSegments;"
+              class="menuitem-iconic"
+              image="images/delete_all_segments.png" />
+
+            <menuseparator />
+
+            <menuitem
+              id="itmSegmentClipContextMenuRefreshClip"
+              command="cmdRefreshClip"
+              key="keyRefreshClip"
+              label="&cmdRefreshClip;"
+              class="menuitem-iconic"
+              image="images/refresh_clip.png" />
+
+        </popup>
+
+    </popupset>
+
+    <deck id="MainDeck" flex="1">
+
+        <vbox flex="1">
+            
+            <menubar id="mnuMainMenu">
+
+                <!-- File Menu -->
+                <menu
+                  id="mnuFileMenu"
+                  label="&mnuFileMenu;">
+                 
+                    <menupopup id="FileMenu">
+
+                        <menuitem
+                          id="itmFileMenuNewScript"
+                          command="cmdNewScript"
+                          key="keyNewScript"
+                          label="&cmdNewScript;"
+                          class="menuitem-iconic"
+                          image="images/script.png" />
+            
+                        <menuitem
+                          id="itmFileMenuOpenScript"
+                          command="cmdOpenScript"
+                          key="keyOpenScript"
+                          label="&cmdOpenScript;"
+                          class="menuitem-iconic"
+                          image="images/folder_script.png" />
+            
+                        <menuitem
+                          id="itmFileMenuImportScript"
+                          command="cmdImportScript"
+                          key="keyImportScript"
+                          label="&cmdImportScript;"
+                          class="menuitem-iconic"
+                          image="images/import_script.png" />
+            
+                        <menuseparator />
+
+                        <menuitem
+                          id="itmFileMenuSaveScript"
+                          command="cmdSaveScript"
+                          key="keySaveScript"
+                          label="&cmdSaveScript;"
+                          class="menuitem-iconic"
+                          image="images/save_script.png" />
+            
+                        <menuitem
+                          id="itmFileMenuSaveScriptAs"
+                          command="cmdSaveScriptAs"
+                          label="&cmdSaveScriptAs;"
+                          class="menuitem-iconic"
+                          image="images/save_script_as.png" />
+            
+                        <menuseparator />
+
+                        <menuitem
+                          id="itmFileMenuPrint"
+                          command="cmdPrint"
+                          key="keyPrint"
+                          label="&cmdPrint;"
+                          class="menuitem-iconic"
+                          image="images/print.png" />
+            
+                        <menuseparator />
+
+                        <menuitem
+                          id="itmFileMenuQuit"
+                          command="cmdQuit"
+                          key="keyQuit"
+                          label="&cmdQuit;"
+                          class="menuitem-iconic"
+                          image="images/quit.png" />
+
+                    </menupopup>
+
+                </menu>
+
+                <!-- Script Editor Menu -->
+                <menu
+                  id="mnuScriptEditorMenu"
+                  label="&mnuScriptEditorMenu;">
+                 
+                    <menupopup id="ScriptMenu">
+
+                        <menuitem
+                          id="itmScriptMenuNewSegment"
+                          command="cmdNewSegment"
+                          key="keyNewSegment"
+                          label="&cmdNewSegment;"
+                          class="menuitem-iconic"
+                          image="images/new_segment.png" />
+            
+                        <menuitem
+                          id="itmScriptMenuEditSegment"
+                          command="cmdEditSegmentInScript"
+                          key="keyEditSegmentInScript"
+                          label="&cmdEditSegmentInScript;"
+                          class="menuitem-iconic"
+                          image="images/edit_segment.png" />
+            
+                        <menuseparator />
+
+                        <menuitem
+                          id="itmScriptMenuMoveSegmentUp"
+                          command="cmdMoveSegmentUp"
+                          key="keyMoveSegmentUp"
+                          label="&cmdMoveSegmentUp;"
+                          class="menuitem-iconic"
+                          image="images/move_segment_up.png" />
+            
+                        <menuitem
+                          id="itmScriptMenuMenuMoveSegmentDown"
+                          command="cmdMoveSegmentDown"
+                          key="keyMoveSegmentDown"
+                          label="&cmdMoveSegmentDown;"
+                          class="menuitem-iconic"
+                          image="images/move_segment_down.png" />
+            
+                        <menuseparator />
+
+                        <menuitem
+                          id="itmScriptMenuCopyToClip"
+                          command="cmdCopyToClip"
+                          key="keyCopyToClip"
+                          label="&cmdCopyToClip;"
+                          class="menuitem-iconic"
+                          image="images/copy_to_clip.png" />
+            
+                        <menuseparator />
+
+                        <menuitem
+                          id="itmScriptMenuDeleteSegment"
+                          command="cmdScriptDeleteSelectedSegments"
+                          label="&cmdScriptDeleteSelectedSegments;"
+                          class="menuitem-iconic"
+                          image="images/delete_selected_segments.png" />
+            
+                        <menuitem
+                          id="itmScriptMenuDeleteAllSegments"
+                          command="cmdScriptDeleteAllSegments"
+                          label="&cmdScriptDeleteAllSegments;"
+                          class="menuitem-iconic"
+                          image="images/delete_all_segments.png" />
+            
+                    </menupopup>
+                 
+                </menu>
+
+                <!-- Segment Clip Menu -->
+                <menu
+                  id="mnuSegmentClipMenu"
+                  label="&mnuSegmentClipMenu;">
+                 
+                    <menupopup id="SegmentClipMenu">
+
+                        <menuitem
+                          id="itmSegmentClipMenuEditSegmentInClip"
+                          command="cmdEditSegmentInClip"
+                          key="keyEditSegmentInClip"
+                          label="&cmdEditSegmentInClip;"
+                          class="menuitem-iconic"
+                          image="images/edit_segment.png" />
+
+                        <menuitem
+                          id="itmSegmentClipMenuCopyToScript"
+                          command="cmdCopyToScript"
+                          key="keyCopyToScript"
+                          label="&cmdCopyToScript;"
+                          class="menuitem-iconic"
+                          image="images/copy_to_script.png" />
+            
+                        <menuitem
+                          id="itmSegmentClipMenuDeleteSegment"
+                          command="cmdClipDeleteSelectedSegments"
+                          label="&cmdClipDeleteSelectedSegments;"
+                          class="menuitem-iconic"
+                          image="images/delete_selected_segments.png" />
+
+                        <menuitem
+                          id="itmSegmentClipMenuDeleteSegment"
+                          command="cmdClipDeleteAllSegments"
+                          label="&cmdClipDeleteAllSegments;"
+                          class="menuitem-iconic"
+                          image="images/delete_all_segments.png" />
+
+                        <menuseparator />
+
+                        <menuitem
+                          id="itmSegmentClipMenuRefreshClip"
+                          command="cmdRefreshClip"
+                          key="keyRefreshClip"
+                          label="&cmdRefreshClip;"
+                          class="menuitem-iconic"
+                          image="images/refresh_clip.png" />
+
+                    </menupopup>
+                 
+                </menu>
+
+                <!-- Teleprompter Menu -->
+                <menu
+                  id="mnuTeleprompterMenu"
+                  label="&mnuTeleprompterMenu;">
+                 
+                    <menupopup id="TeleprompterMenu">
+
+                        <menuitem
+                          id="itmTeleprompterMenuShowTeleprompter"
+                          command="cmdShowTeleprompter"
+                          key="keyShowTeleprompter"
+                          label="&cmdShowTeleprompter;"
+                          class="menuitem-iconic"
+                          image="images/teleprompter.png" />
+
+                    </menupopup>
+                 
+                 </menu>
+            
+                <!-- Tools Menu -->
+                <menu
+                  id="mnuToolsMenu"
+                  label="&mnuToolsMenu;">
+                 
+                    <menupopup id="ToolsMenu">
+
+                        <menuitem
+                          id="itmToolsMenuCheckForUpdate"
+                          command="cmdCheckForUpdate"
+                          key="keyCheckForUpdate"
+                          label="&cmdCheckForUpdate;"
+                          class="menuitem-iconic"
+                          image="images/check_for_update.png" />
+
+                        <menuseparator />
+
+                        <menuitem
+                          id="itmToolsMenuPreferences"
+                          command="cmdPreferences"
+                          key="keyPreferences"
+                          label="&cmdPreferences;"
+                          class="menuitem-iconic"
+                          image="images/preferences.png" />
+
+                    </menupopup>
+                 
+                 </menu>
+            
+                <!-- Help Menu -->
+                <menu
+                  id="mnuHelpMenu"
+                  label="&mnuHelpMenu;">
+                 
+                    <menupopup id="HelpMenu">
+
+                        <menuitem
+                          id="itemHelpMenuHelp"
+                          command="cmdHelp"
+                          key="keyHelp"
+                          label="&cmdHelp;"
+                          class="menuitem-iconic"
+                          image="images/help.png" />
+                         
+                        <menuseparator />
+                         
+                        <menuitem
+                          id="itemHelpMenuAbout"
+                          command="cmdAbout"
+                          label="&cmdAbout;"
+                          class="menuitem-iconic"
+                          image="images/about.png" />
+
+                    </menupopup>
+                 
+                 </menu>
+            
+            </menubar>
+            
+            <toolbox id="tbxScriptEditor" orient="horizontal">
+                
+                <!-- Script Toolbar -->
+                <toolbar id="tbrScript" grippyhidden="true">
+                
+                    <toolbarbutton command="cmdNewScript" tooltiptext="&cmdNewScript;" image="images/script.png" />
+                    <toolbarbutton command="cmdOpenScript" tooltiptext="&cmdOpenScript;" image="images/folder_script.png" />
+                    <toolbarbutton command="cmdImportScript" tooltiptext="&cmdImportScript;" image="images/import_script.png" />
+                    <toolbarbutton command="cmdSaveScript" tooltiptext="&cmdSaveScript;" image="images/save_script.png" />
+                    <toolbarbutton command="cmdSaveScriptAs" tooltiptext="&cmdSaveScriptAs;" image="images/save_script_as.png" />
+                    
+                </toolbar>
+                
+                <toolbarseparator />
+
+                <!-- Print Toolbar -->
+                <toolbar id="tbrPrintScript" grippyhidden="true">
+                
+                    <toolbarbutton command="cmdPrint" tooltiptext="&cmdPrint;" image="images/print.png" />
+                   
+                </toolbar>
+                
+                <toolbarseparator />
+
+                <!-- Segment Toolbar -->
+                <toolbar id="tbrSegment" grippyhidden="true">
+                
+                    <toolbarbutton command="cmdNewSegment" tooltiptext="&cmdNewSegment;" image="images/new_segment.png" />
+                    <toolbarbutton command="cmdEditSegmentInScript" tooltiptext="&cmdEditSegmentInScript;" image="images/edit_segment.png" />
+                    <toolbarbutton command="cmdMoveSegmentUp" tooltiptext="&cmdMoveSegmentUp;" image="images/move_segment_up.png" />
+                    <toolbarbutton command="cmdMoveSegmentDown" tooltiptext="&cmdMoveSegmentDown;" image="images/move_segment_down.png" />
+                    <toolbarbutton command="cmdCopyToClip" tooltiptext="&cmdCopyToClip;" image="images/copy_to_clip.png" />
+                    
+                </toolbar>
+                
+                <!-- Segment Clip Toolbar -->
+                <toolbar id="tbrSegmentClip" grippyhidden="true">
+                
+                    <toolbarbutton command="cmdCopyToScript" tooltiptext="&cmdCopyToScript;" image="images/copy_to_script.png" />
+                    
+                </toolbar>
+                
+                <toolbarseparator />
+
+                <!-- Teleprompter Toolbar -->
+                <toolbar id="tbrTeleprompter" grippyhidden="true">
+                
+                    <toolbarbutton command="cmdShowTeleprompter" tooltiptext="&cmdShowTeleprompter;" image="images/teleprompter.png" />
+                    
+                </toolbar>
+                
+                <toolbarseparator />
+
+            </toolbox>
+
+            <hbox flex="1">
+
+                <vbox flex="1">
+                
+                    <groupbox orient="verticle" flex="1">
+                    
+                        <caption label="&lblScript;" image="images/script.png" style="font-weight: bold;" />
+                
+                        <listbox
+                            id="lstScript"
+                            context="mnuScriptContextMenu"
+                            onselect="OnScriptSelect();"
+                            ondblclick="OnScriptDblClick();"
+                            seltype="multiple"
+                            flex="1" />
+                    
+                    </groupbox>
+                
+                </vbox>
+                
+                <vbox flex="1">
+                
+                    <groupbox orient="vertical" flex="2">
+                    
+                        <caption label="&lblSegmentPreview;" image="images/segment_preview.png" style="font-weight: bold;" />
+                        
+                        <hbox>
+                        
+                            <spacer style="width: 5px;" />
+                            <image src="images/segment_title.png" width="16" height="16" />
+                            <label id="lblTitle" value="" />
+                        
+                        </hbox>
+                        
+                        <browser id="ctlSegmentPreview" flex="1" />
+                        
+                        <hbox>
+                        
+                            <spacer style="width: 5px;" />
+                            <image src="images/camera_cue.png" width="16" height="16" />
+                            <label id="lblCameraCue" value="" />
+                        
+                        </hbox>
+                        
+                        <hbox>
+                        
+                            <spacer style="width: 5px;" />
+                            <image src="images/audio_cue.png" width="16" height="16" />
+                            <label id="lblAudioCue" value="" />
+                        
+                        </hbox>
+                        
+                        <hbox>
+                        
+                            <spacer style="width: 5px;" />
+                            <image src="images/video_cue.png" width="16" height="16" />
+                            <label id="lblVideoCue" value="" />
+                        
+                        </hbox>
+                        
+                        <hbox>
+                        
+                            <spacer style="width: 5px;" />
+                            <image src="images/talent_cue.png" width="16" height="16" />
+                            <label id="lblTalentCue" value="" />
+                        
+                        </hbox>
+                        
+                        <hbox>
+                        
+                            <spacer style="width: 5px;" />
+                            <image src="images/other_cue.png" width="16" height="16" />
+                            <label id="lblOtherCue" value="" />
+                        
+                        </hbox>
+                        
+                    </groupbox>
+
+                    <groupbox orient="vertical" flex="1">
+                    
+                        <caption label="&lblSegmentClip;" image="images/segment_clip.png" style="font-weight: bold;" />
+                    
+                        <listbox
+                            id="lstSegmentClip"
+                            context="mnuSegmentClipContextMenu"
+                            onselect="OnSegmentClipSelect();"
+                            ondblclick="OnSegmentClipDblClick();"
+                            seltype="multiple"
+                            flex="1" />
+                        
+                        <hbox>
+                        
+                            <spacer flex="1" />
+                            <checkbox id="chkAutoRefreshClip" label="&chkAutoRefreshClip;" onclick="OnAutoRefreshClipClick();" />
+                        
+                        </hbox>
+                    
+                    </groupbox>
+                
+                </vbox>
+
+            </hbox>
+
+            <statusbar id="sbrMainStatus">
+            
+                <statusbarpanel id="sbpNotifications" style="text-align: left;" flex="1" />
+                <progressmeter id="ctlProgress" value="0%" style="width: 100px;" hidden="true" />
+                <statusbarpanel id="sbpClipAutoRefresh" style="width: 50px; text-align: right;" label="0s" />
+            
+            </statusbar>
+
+        </vbox>
+        
+        <browser id="webTeleprompter" flex="1" />
+
+    </deck>
+
+</window>

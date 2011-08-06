@@ -1,0 +1,9 @@
+body {background-color: [bgcolor];  padding: 0px; margin: 0px; [mirroring]}
+.cssScriptContainer {position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; overflow: hidden;}
+.cssScriptSegments {position: absolute; top: 0px; left: 0px; color: [fontcolor]; font-size: [fontsize]pt; font-weight: bold; font-family: Arial;}
+.cssSegmentNumbers {color: [segnumcolor]; font-size: [fontsize]pt;}
+#left {position: fixed; top: 35%; left: 0px; font-size: [fontsize]pt; width: .5em;}
+#right {position: fixed; top: 35%; left: auto; right: 0px; font-size: [fontsize]pt; width: .5em;}
+#middle {position: relative; top: 0px; font-size: [fontsize]pt; margin-left: .5em; margin-right: .5em; height: 100%;}
+#left-triangle {border-color: transparent transparent transparent [fontcolor]; border-style: solid; font-size: [fontsize]pt; border-width: .5em 0px .5em .5em; height: 0px; width: 0px;}
+#right-triangle {border-color: transparent [fontcolor] transparent transparent; border-style: solid; font-size: [fontsize]pt; border-width: .5em .5em .5em 0px; height: 0px; width: 0px;}

@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<!--
+Version: MPL 1.1/GPL 2.0
+
+The contents of this file are subject to the Mozilla Public License
+Version 1.1 (the "License"); you may not use this file except in
+compliance with the License. You may obtain a copy of the License at
+http://www.mozilla.org/MPL/. 
+
+Software distributed under the License is distributed on an "AS IS"
+basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+License for the specific language governing rights and limitations
+under the License.
+
+The Original Code is TeleKast.
+
+The Initial Developer of the Original Code is Greg Marine.
+Portions created by the Initial Developer are Copyright (C) 2006-2007
+the Initial Developer. All Rights Reserved.
+
+Contributor(s):
+
+Alternatively, the contents of this file may be used under the terms
+of the GNU General Public License version 2 or above (the  "GPL License"),
+in which case the provisions of the GPL License are applicable instead of
+those above. If you wish to allow use of your version of this file only
+under the terms of the GPL License and not to allow others to use
+your version of this file under the MPL, indicate your decision by
+deleting the provisions above and replace them with the notice and
+other provisions required by the GPL License. If you do not delete
+the provisions above, a recipient may use your version of this file
+under either the MPL or the GPL License.
+-->
+
+<!DOCTYPE dialog SYSTEM "chrome://telekast/locale/frmHelp.dtd">
+
+<dialog
+  id="frmHelp"
+  title="&frmHelp;"
+  width="800"
+  height="600"
+  orient="vertical"
+  buttons="accept"
+  onload="OnLoad();"
+  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <script type="application/x-javascript" src="chrome://jslib/content/jslib.js" />
+    <script type="application/x-javascript" src="TeleKast.js"/>
+    <script type="application/x-javascript" src="frmHelp.js"/>
+    
+    <stringbundleset>
+        <stringbundle id="frmHelpProperties" src="chrome://telekast/locale/frmAbout.properties"/>
+    </stringbundleset>
+    
+    <commandset>
+    
+        <command id="cmdGoBack" oncommand="OnCmdGoBack();" disabled="true" />
+        <command id="cmdGoForward" oncommand="OnCmdGoForward();" disabled="true" />
+        <command id="cmdGoHome" oncommand="OnCmdGoHome();" />
+
+    </commandset>
+    
+    <toolbox id="tbxHelp" orient="horizontal">
+
+        <!-- <toolbarbutton command="cmdGoBack" tooltiptext="&cmdGoBack;" image="images/help_go_back.png" />
+        <toolbarbutton command="cmdGoForward" tooltiptext="&cmdGoForward;" image="images/help_go_forward.png" /> -->
+        <toolbarbutton command="cmdGoHome" tooltiptext="&cmdGoHome;" image="images/help_go_home.png" />
+        
+    </toolbox>
+
+    <hbox flex="1">
+        <tree id="ctlContents" hidecolumnpicker="true" seltype="single" onselect="OnContentsSelect(event);" flex="1">
+
+            <treecols>
+                <treecol id="contents" label="&contents;" primary="true" flex="1" />
+            </treecols>
+
+            <treechildren>
+
+                <!-- Terminology Topics -->
+                <treeitem container="true">
+                    <treerow>
+                        <treecell value="chrome://telekast/locale/help/terminology/index.html" label="&helpTopicTerminology;" />
+                    </treerow>
+                    <treechildren>
+                        <treeitem>
+                            <treerow>
+                                <treecell value="chrome://telekast/locale/help/terminology/script.html" label="&scriptTerm;" />
+                            </treerow>
+                        </treeitem>
+                        <treeitem>
+                            <treerow>
+                                <treecell value="chrome://telekast/locale/help/terminology/segment.html" label="&segmentTerm;" />
+                            </treerow>
+                        </treeitem>
+                        <treeitem>
+                            <treerow>
+                                <treecell value="chrome://telekast/locale/help/terminology/cue.html" label="&cueTerm;" />
+                            </treerow>
+                        </treeitem>
+                        <treeitem>
+                            <treerow>
+                                <treecell value="chrome://telekast/locale/help/terminology/segment_clip.html" label="&segmentClipTerm;" />
+                            </treerow>
+                        </treeitem>
+                        <treeitem>
+                            <treerow>
+                                <treecell value="chrome://telekast/locale/help/terminology/teleprompter.html" label="&teleprompterTerm;" />
+                            </treerow>
+                        </treeitem>
+                    </treechildren>
+                </treeitem>
+
+                <!-- How To Topics -->
+                <treeitem container="true">
+                    <treerow>
+                        <treecell value="chrome://telekast/locale/help/howto/index.html" label="&helpTopicHowTo;" />
+                    </treerow>
+                    <treechildren>
+                        <treeitem>
+                            <treerow>
+                                <treecell value="chrome://telekast/locale/help/howto/new_open_script.html" label="&newScript;" />
+                            </treerow>
+                        </treeitem>
+                        <treeitem>
+                            <treerow>
+                                <treecell value="chrome://telekast/locale/help/howto/new_edit_segment.html" label="&editnewSegment;" />
+                            </treerow>
+                        </treeitem>
+                        <treeitem>
+                            <treerow>
+                                <treecell value="chrome://telekast/locale/help/howto/using_the_segment_clip.html" label="&usingSegmentClip;" />
+                            </treerow>
+                        </treeitem>
+                        <treeitem>
+                            <treerow>
+                                <treecell value="chrome://telekast/locale/help/howto/printing.html" label="&printing;" />
+                            </treerow>
+                        </treeitem>
+                    </treechildren>
+                </treeitem>
+
+                <!-- Script Editor Topics -->
+                <treeitem container="true">
+                    <treerow>
+                        <treecell value="chrome://telekast/locale/help/script_editor/index.html" label="&helpTopicScriptEditor;" />
+                    </treerow>
+                    <treechildren>
+                        <treeitem>
+                            <treerow>
+                                <treecell value="chrome://telekast/locale/help/script_editor/toolbar.html" label="&scriptToolbar;" />
+                            </treerow>
+                        </treeitem>
+                        <treeitem>
+                            <treerow>
+                                <treecell value="chrome://telekast/locale/help/script_editor/main_screen.html" label="&scriptMainScreen;" />
+                            </treerow>
+                        </treeitem>
+                        <treeitem>
+                            <treerow>
+                                <treecell value="chrome://telekast/locale/help/script_editor/script.html" label="&scriptScript;" />
+                            </treerow>
+                        </treeitem>
+                        <treeitem>
+                            <treerow>
+                                <treecell value="chrome://telekast/locale/help/script_editor/segment_preview.html" label="&scriptSegmentPreview;" />
+                            </treerow>
+                        </treeitem>
+                        <treeitem>
+                            <treerow>
+                                <treecell value="chrome://telekast/locale/help/script_editor/segment_clip.html" label="&scriptSegmentClip;" />
+                            </treerow>
+                        </treeitem>
+                        <treeitem>
+                            <treerow>
+                                <treecell value="chrome://telekast/locale/help/script_editor/segment_editor.html" label="&scriptSegmentEditor;" />
+                            </treerow>
+                        </treeitem>
+                    </treechildren>
+                </treeitem>
+
+                <!-- Preferences Topics -->
+                <treeitem container="true">
+                    <treerow>
+                        <treecell value="chrome://telekast/locale/help/preferences/index.html" label="&helpTopicPreferences;" />
+                    </treerow>
+                    <treechildren>
+                        <treeitem>
+                            <treerow>
+                                <treecell value="chrome://telekast/locale/help/preferences/general.html" label="&preferencesGeneral;" />
+                            </treerow>
+                        </treeitem>
+                        <treeitem>
+                            <treerow>
+                                <treecell value="chrome://telekast/locale/help/preferences/script_editor.html" label="&preferencesScriptEditor;" />
+                            </treerow>
+                        </treeitem>
+                        <treeitem>
+                            <treerow>
+                                <treecell value="chrome://telekast/locale/help/preferences/segment_clip.html" label="&preferencesSegmentClip;" />
+                            </treerow>
+                        </treeitem>
+                        <treeitem>
+                            <treerow>
+                                <treecell value="chrome://telekast/locale/help/preferences/teleprompter.html" label="&preferencesTeleprompter;" />
+                            </treerow>
+                        </treeitem>
+                    </treechildren>
+                </treeitem>
+
+                <!-- Shortcuts Topics -->
+                <treeitem container="true">
+                    <treerow>
+                        <treecell value="chrome://telekast/locale/help/shortcuts/index.html" label="&helpTopicShortcuts;" />
+                    </treerow>
+                    <treechildren>
+                        <treeitem>
+                            <treerow>
+                                <treecell value="chrome://telekast/locale/help/shortcuts/application_shortcuts.html" label="&applicationShortcuts;" />
+                            </treerow>
+                        </treeitem>
+                        <treeitem>
+                            <treerow>
+                                <treecell value="chrome://telekast/locale/help/shortcuts/teleprompter_shortcuts.html" label="&teleprompterShortcuts;" />
+                            </treerow>
+                        </treeitem>
+                    </treechildren>
+                </treeitem>
+
+                <!-- License Topics -->
+                <treeitem container="true">
+                    <treerow>
+                        <treecell value="chrome://telekast/locale/help/licenses/index.html" label="&helpTopicLicenses;" />
+                    </treerow>
+                    <treechildren>
+                        <treeitem>
+                            <treerow>
+                                <treecell value="chrome://telekast/locale/help/licenses/MPL1.1.html" label="&mplLicense;" />
+                            </treerow>
+                        </treeitem>
+                        <treeitem>
+                            <treerow>
+                                <treecell value="chrome://telekast/locale/help/licenses/GPL2.0.html" label="&gplLicense;" />
+                            </treerow>
+                        </treeitem>
+                    </treechildren>
+                </treeitem>
+
+            </treechildren>
+
+        </tree>
+        
+        <browser id="webBrowser" src="chrome://telekast/locale/help/index.html" flex="3" />
+            
+    </hbox>
+
+</dialog>
