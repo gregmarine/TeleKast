@@ -627,11 +627,11 @@ function SaveScript()
             var segment = Element("lstScript").getItemAtIndex(i).value.split("|");
             script += "    <segment title=\"" + segment[0] + "\">\r\n";
             script += "        <teleprompter><![CDATA[" + segment[1] + "]]></teleprompter>\r\n";
-            script += "        <camera>" + segment[2] + "</camera>\r\n";
-            script += "        <audio>" + segment[3] + "</audio>\r\n";
-            script += "        <video>" + segment[4] + "</video>\r\n";
-            script += "        <talent>" + segment[5] + "</talent>\r\n";
-            script += "        <other>" + segment[6] + "</other>\r\n";
+            script += "        <camera><![CDATA[" + segment[2] + "]]></camera>\r\n";
+            script += "        <audio><![CDATA[" + segment[3] + "]]></audio>\r\n";
+            script += "        <video><![CDATA[" + segment[4] + "]]></video>\r\n";
+            script += "        <talent><![CDATA[" + segment[5] + "]]></talent>\r\n";
+            script += "        <other><![CDATA[" + segment[6] + "]]></other>\r\n";
             script += "    </segment>\r\n";
         }
         script += "</script>";
