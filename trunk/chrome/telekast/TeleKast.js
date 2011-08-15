@@ -314,7 +314,7 @@ function PrepareTeleprompter()
         	scaleX = scaleX * -1;
         }
         if(objPrefs.getBoolPref("telekast.teleprompter.mirror-vert")) {
-        	scaleY = scaleX * -1;
+        	scaleY = scaleY * -1;
         }
         var strMirroring = "-moz-transform: scaleX(" + scaleX + ") scaleY(" + scaleY + ");";
 
